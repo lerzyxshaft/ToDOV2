@@ -4,37 +4,52 @@ class Todo:
         self.todos = []
 
     def add_todo(self):
-        todos = [None]
         add_todo = input("Input todo name:")
-        todos.append(add_todo)
-        print(todos)
-
-    def mas_todo(self):
+        self.todos.append(add_todo)
         print(self.todos)
-        mark_as_done = input('Choose which todo you want to delete:')
-        self.todos.remove(mark_as_done)
+
+    def mark_as_done(self):
+        if not self.todos:
+            print("Your todos list is empty, nothing to mark as done.")
+            return
+        self.view_todos()
+        try:
+            index = int(input("Enter the number of the task to mark as done: ")) - 1
+            if 0 <= index < len(self.todos):
+                completed_task = self.todos.pop(index)
+                print(f"'{completed_task}' has been marked as done.")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+    def view_todos(self):
+        if not self.todos:
+            print("Your todos list is empty, firstly add a todo.")
+        else:
+            print("Your Current Todos:")
+            for idx, todo in enumerate(self.todos, 1):
+                print(f"{idx}. {todo}")
 
     def menu(self):
-        print("Hello and welcome to your todo project!")
-        user_choice = input("Select what you want to do: \n1.Print your ToDo's \n2.Add todo\n3.Mark as done\n(input letter)")
-        if user_choice == 1:
-            if not self.todos:
-                print("Your todos list is empty, firstly add todo")
-                return
+        while True:
+            print("\nSelect what you want to do:")
+            print("1. Print your ToDo's")
+            print("2. Add todo")
+            print("3. Mark as done")
+            print("4. Exit")
+            user_choice = input("Input number: ")
+            if user_choice == "1":
+                self.view_todos()
+            elif user_choice == "2":
+                self.add_todo()
+            elif user_choice == "3":
+                self.mark_as_done()
+            elif user_choice == "4":
+                print("Bye!")
+                break
             else:
-                print(self.todos)
-                return
-
-        elif user_choice == 2:
-            self.add_todo()
-            return
-        elif user_choice == 3:
-            self.mas_todo()
-            return
-
-
-        print(self.todos)
-
+                print("Invalid choise please try again!")
 
 if __name__ == "__main__":
     todo_app = Todo()
