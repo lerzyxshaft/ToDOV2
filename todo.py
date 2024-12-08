@@ -1,4 +1,4 @@
-class Todo:
+class Todo():
 
     def __init__(self):
         self.todos = []
