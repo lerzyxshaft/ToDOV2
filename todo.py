@@ -1,35 +1,64 @@
 class Todo():
 
     def __init__(self):
-        self.todos = []
+        self.job_todos = []
+        self.work_todos = []
+        self.home_todos = []
 
     def add_todo(self):
         add_todo = input("Input todo name:")
-        self.todos.append(add_todo)
-        print(self.todos)
+        category = input('Choose category(1-3): \n1)Job todos. \n2)Work todos. \n3)Home todos.\n')
+        if category == "1":
+            self.job_todos.append(add_todo)
+            print(self.job_todos)
+        elif category == "2":
+            self.work_todos.append(add_todo)
+            print(self.work_todos)
+        elif category == "3":
+            self.home_todos.append(add_todo)
+            print(self.home_todos)
 
     def mark_as_done(self):
-        if not self.todos:
+        if not self.job_todos and not self.work_todos and not self.home_todos:
             print("Your todos list is empty, nothing to mark as done.")
             return
         self.view_todos()
         try:
-            index = int(input("Enter the number of the task to mark as done: ")) - 1
-            if 0 <= index < len(self.todos):
-                completed_task = self.todos.pop(index)
-                print(f"'{completed_task}' has been marked as done.")
+            t_category = input('Choose category(1-3): \n1)Job todos. \n2)Work todos. \n3)Home todos.\n')
+            if t_category == "1":
+                self.view_todos()
+                job_index = int(input("Enter the number of the task to mark as done: ")) - 1
+                if 0 <= job_index < len(self.job_todos ):
+                    completed_task = self.job_todos.pop(job_index)
+                    print(f"'{completed_task}' has been marked as done.")
+            elif t_category == "2":
+                self.view_todos()
+                work_index = int(input("Enter the number of the task to mark as done:"))
+                if 0 <= work_index < len(self.work_todos ):
+                    completed_task = self.work_todos.pop(work_index)
+                    print(f"'{completed_task}' has been marked as done.")
+            elif t_category == "3":
+                self.view_todos()
+                home_index = int(input("Enter the number of the task to mark as done:"))
+                if 0 <= home_index < len(self.work_todos ):
+                    completed_task = self.work_todos.pop(home_index)
+                    print(f"'{completed_task}' has been marked as done.")
             else:
                 print("Invalid task number.")
         except ValueError:
             print("Please enter a valid number.")
 
     def view_todos(self):
-        if not self.todos:
+        if not self.job_todos and not self.work_todos and not self.home_todos:
             print("Your todos list is empty, firstly add a todo.")
         else:
             print("Your Current Todos:")
-            for idx, todo in enumerate(self.todos, 1):
-                print(f"{idx}. {todo}")
+            for job_idx, job_todo  in enumerate( self.job_todos, 1):
+                print(f"Your job todos:\n{job_idx}. {job_todo}")
+            for work_idx, work_todo in enumerate(self.work_todos, 1):
+                print(f"Your work todos:\n{work_idx}. {work_todo}")
+            for home_idx, home_todo in enumerate(self.home_todos, 1):
+                print(f"Your home todos:\n{home_idx}. {home_todo}")
 
     def menu(self):
         while True:
